@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysOptionInfoMapper">
+    
+    <resultMap type="SysOptionInfo" id="SysOptionInfoResult">
+        <result property="optionId"    column="option_id"    />
+        <result property="assetUseType"    column="asset_use_type"    />
+        <result property="assetInfo"    column="asset_info"    />
+        <result property="assetOwner"    column="asset_owner"    />
+        <result property="assetLocation"    column="asset_location"    />
+        <result property="assetUseTime"    column="asset_use_time"    />
+        <result property="assetFile"    column="asset_file"    />
+        <result property="assetAllow"    column="asset_allow"    />
+        <result property="isAllow"    column="is_allow"    />
+        <result property="disagreeReason"    column="disagree_reason"    />
+        <result property="isComplete"    column="is_complete"    />
+    </resultMap>
+
+    <sql id="selectSysOptionInfoVo">
+        select option_id, asset_use_type, asset_info, asset_owner, asset_location, asset_use_time, asset_file, asset_allow, is_allow, disagree_reason, is_complete from sys_option_info
+    </sql>
+
+    <select id="selectSysOptionInfoList" parameterType="SysOptionInfo" resultMap="SysOptionInfoResult">
+        <include refid="selectSysOptionInfoVo"/>
+        <where>  
+            <if test="assetUseType != null  and assetUseType != ''"> and asset_use_type = #{assetUseType}</if>
+            <if test="assetInfo != null "> and asset_info = #{assetInfo}</if>
+            <if test="assetOwner != null  and assetOwner != ''"> and asset_owner = #{assetOwner}</if>
+            <if test="assetLocation != null  and assetLocation != ''"> and asset_location = #{assetLocation}</if>
+            <if test="assetUseTime != null "> and asset_use_time = #{assetUseTime}</if>
+            <if test="assetFile != null  and assetFile != ''"> and asset_file = #{assetFile}</if>
+            <if test="assetAllow != null  and assetAllow != ''"> and asset_allow = #{assetAllow}</if>
+            <if test="isAllow != null "> and is_allow = #{isAllow}</if>
+            <if test="disagreeReason != null  and disagreeReason != ''"> and disagree_reason = #{disagreeReason}</if>
+            <if test="isComplete != null "> and is_complete = #{isComplete}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysOptionInfoByOptionId" parameterType="Long" resultMap="SysOptionInfoResult">
+        <include refid="selectSysOptionInfoVo"/>
+        where option_id = #{optionId}
+    </select>
+        
+    <insert id="insertSysOptionInfo" parameterType="SysOptionInfo" useGeneratedKeys="true" keyProperty="optionId">
+        insert into sys_option_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="assetUseType != null">asset_use_type,</if>
+            <if test="assetInfo != null">asset_info,</if>
+            <if test="assetOwner != null">asset_owner,</if>
+            <if test="assetLocation != null">asset_location,</if>
+            <if test="assetUseTime != null">asset_use_time,</if>
+            <if test="assetFile != null">asset_file,</if>
+            <if test="assetAllow != null">asset_allow,</if>
+            <if test="isAllow != null">is_allow,</if>
+            <if test="disagreeReason != null">disagree_reason,</if>
+            <if test="isComplete != null">is_complete,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="assetUseType != null">#{assetUseType},</if>
+            <if test="assetInfo != null">#{assetInfo},</if>
+            <if test="assetOwner != null">#{assetOwner},</if>
+            <if test="assetLocation != null">#{assetLocation},</if>
+            <if test="assetUseTime != null">#{assetUseTime},</if>
+            <if test="assetFile != null">#{assetFile},</if>
+            <if test="assetAllow != null">#{assetAllow},</if>
+            <if test="isAllow != null">#{isAllow},</if>
+            <if test="disagreeReason != null">#{disagreeReason},</if>
+            <if test="isComplete != null">#{isComplete},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysOptionInfo" parameterType="SysOptionInfo">
+        update sys_option_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="assetUseType != null">asset_use_type = #{assetUseType},</if>
+            <if test="assetInfo != null">asset_info = #{assetInfo},</if>
+            <if test="assetOwner != null">asset_owner = #{assetOwner},</if>
+            <if test="assetLocation != null">asset_location = #{assetLocation},</if>
+            <if test="assetUseTime != null">asset_use_time = #{assetUseTime},</if>
+            <if test="assetFile != null">asset_file = #{assetFile},</if>
+            <if test="assetAllow != null">asset_allow = #{assetAllow},</if>
+            <if test="isAllow != null">is_allow = #{isAllow},</if>
+            <if test="disagreeReason != null">disagree_reason = #{disagreeReason},</if>
+            <if test="isComplete != null">is_complete = #{isComplete},</if>
+        </trim>
+        where option_id = #{optionId}
+    </update>
+
+    <delete id="deleteSysOptionInfoByOptionId" parameterType="Long">
+        delete from sys_option_info where option_id = #{optionId}
+    </delete>
+
+    <delete id="deleteSysOptionInfoByOptionIds" parameterType="String">
+        delete from sys_option_info where option_id in 
+        <foreach item="optionId" collection="array" open="(" separator="," close=")">
+            #{optionId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysAssetInfoMapper">
+    
+    <resultMap type="SysAssetInfo" id="SysAssetInfoResult">
+        <result property="infoId"    column="info_id"    />
+        <result property="assetType"    column="asset_type"    />
+        <result property="assetSubType"    column="asset_sub_type"    />
+        <result property="assetName"    column="asset_name"    />
+        <result property="assetNation"    column="asset_nation"    />
+        <result property="assetFactory"    column="asset_factory"    />
+        <result property="assetIsImport"    column="asset_is_import"    />
+        <result property="assetBugId"    column="asset_bug_id"    />
+        <result property="assetModel"    column="asset_model"    />
+        <result property="assetParam"    column="asset_param"    />
+        <result property="assetNum"    column="asset_num"    />
+        <result property="assetPerPrice"    column="asset_per_price"    />
+        <result property="assetTotalPrice"    column="asset_total_price"    />
+        <result property="assetArriveTime"    column="asset_arrive_time"    />
+        <result property="assetHoldTime"    column="asset_hold_time"    />
+        <result property="projectName"    column="project_name"    />
+        <result property="projectId"    column="project_id"    />
+        <result property="assetId"    column="asset_id"    />
+        <result property="assetCurrentOwner"    column="asset_current_owner"    />
+        <result property="assetCurrentLocation"    column="asset_current_location"    />
+        <result property="assetUseTo"    column="asset_use_to"    />
+        <result property="assetApplyList"    column="asset_apply_list"    />
+        <result property="assetAcceptList"    column="asset_accept_list"    />
+        <result property="assetObjectImg"    column="asset_object_img"    />
+        <result property="assetOtherFile"    column="asset_other_file"    />
+        <result property="assetUseState"    column="asset_use_state"    />
+        <result property="assetUseSituation"    column="asset_use_situation"    />
+    </resultMap>
+
+    <sql id="selectSysAssetInfoVo">
+        select info_id, asset_type, asset_sub_type, asset_name, asset_nation, asset_factory, asset_is_import, asset_bug_id, asset_model, asset_param, asset_num, asset_per_price, asset_total_price, asset_arrive_time, asset_hold_time, project_name, project_id, asset_id, asset_current_owner, asset_current_location, asset_use_to, asset_apply_list, asset_accept_list, asset_object_img, asset_other_file, asset_use_state, asset_use_situation from sys_asset_info
+    </sql>
+
+    <select id="selectSysAssetInfoList" parameterType="SysAssetInfo" resultMap="SysAssetInfoResult">
+        <include refid="selectSysAssetInfoVo"/>
+        <where>  
+            <if test="assetType != null  and assetType != ''"> and asset_type = #{assetType}</if>
+            <if test="assetSubType != null  and assetSubType != ''"> and asset_sub_type = #{assetSubType}</if>
+            <if test="assetName != null  and assetName != ''"> and asset_name like concat('%', #{assetName}, '%')</if>
+            <if test="assetNation != null  and assetNation != ''"> and asset_nation = #{assetNation}</if>
+            <if test="assetFactory != null  and assetFactory != ''"> and asset_factory = #{assetFactory}</if>
+            <if test="assetIsImport != null  and assetIsImport != ''"> and asset_is_import = #{assetIsImport}</if>
+            <if test="assetBugId != null  and assetBugId != ''"> and asset_bug_id = #{assetBugId}</if>
+            <if test="assetModel != null  and assetModel != ''"> and asset_model = #{assetModel}</if>
+            <if test="assetParam != null  and assetParam != ''"> and asset_param = #{assetParam}</if>
+            <if test="assetNum != null "> and asset_num = #{assetNum}</if>
+            <if test="assetPerPrice != null "> and asset_per_price = #{assetPerPrice}</if>
+            <if test="assetTotalPrice != null "> and asset_total_price = #{assetTotalPrice}</if>
+            <if test="assetArriveTime != null "> and asset_arrive_time = #{assetArriveTime}</if>
+            <if test="assetHoldTime != null "> and asset_hold_time = #{assetHoldTime}</if>
+            <if test="projectName != null  and projectName != ''"> and project_name like concat('%', #{projectName}, '%')</if>
+            <if test="projectId != null  and projectId != ''"> and project_id = #{projectId}</if>
+            <if test="assetId != null  and assetId != ''"> and asset_id = #{assetId}</if>
+            <if test="assetCurrentOwner != null  and assetCurrentOwner != ''"> and asset_current_owner = #{assetCurrentOwner}</if>
+            <if test="assetCurrentLocation != null  and assetCurrentLocation != ''"> and asset_current_location = #{assetCurrentLocation}</if>
+            <if test="assetUseTo != null  and assetUseTo != ''"> and asset_use_to = #{assetUseTo}</if>
+            <if test="assetApplyList != null  and assetApplyList != ''"> and asset_apply_list = #{assetApplyList}</if>
+            <if test="assetAcceptList != null  and assetAcceptList != ''"> and asset_accept_list = #{assetAcceptList}</if>
+            <if test="assetObjectImg != null  and assetObjectImg != ''"> and asset_object_img = #{assetObjectImg}</if>
+            <if test="assetOtherFile != null  and assetOtherFile != ''"> and asset_other_file = #{assetOtherFile}</if>
+            <if test="assetUseState != null  and assetUseState != ''"> and asset_use_state = #{assetUseState}</if>
+            <if test="assetUseSituation != null  and assetUseSituation != ''"> and asset_use_situation = #{assetUseSituation}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysAssetInfoByInfoId" parameterType="Long" resultMap="SysAssetInfoResult">
+        <include refid="selectSysAssetInfoVo"/>
+        where info_id = #{infoId}
+    </select>
+        
+    <insert id="insertSysAssetInfo" parameterType="SysAssetInfo" useGeneratedKeys="true" keyProperty="infoId">
+        insert into sys_asset_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="assetType != null">asset_type,</if>
+            <if test="assetSubType != null">asset_sub_type,</if>
+            <if test="assetName != null">asset_name,</if>
+            <if test="assetNation != null">asset_nation,</if>
+            <if test="assetFactory != null">asset_factory,</if>
+            <if test="assetIsImport != null">asset_is_import,</if>
+            <if test="assetBugId != null">asset_bug_id,</if>
+            <if test="assetModel != null">asset_model,</if>
+            <if test="assetParam != null">asset_param,</if>
+            <if test="assetNum != null">asset_num,</if>
+            <if test="assetPerPrice != null">asset_per_price,</if>
+            <if test="assetTotalPrice != null">asset_total_price,</if>
+            <if test="assetArriveTime != null">asset_arrive_time,</if>
+            <if test="assetHoldTime != null">asset_hold_time,</if>
+            <if test="projectName != null">project_name,</if>
+            <if test="projectId != null">project_id,</if>
+            <if test="assetId != null">asset_id,</if>
+            <if test="assetCurrentOwner != null">asset_current_owner,</if>
+            <if test="assetCurrentLocation != null">asset_current_location,</if>
+            <if test="assetUseTo != null">asset_use_to,</if>
+            <if test="assetApplyList != null">asset_apply_list,</if>
+            <if test="assetAcceptList != null">asset_accept_list,</if>
+            <if test="assetObjectImg != null">asset_object_img,</if>
+            <if test="assetOtherFile != null">asset_other_file,</if>
+            <if test="assetUseState != null">asset_use_state,</if>
+            <if test="assetUseSituation != null">asset_use_situation,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="assetType != null">#{assetType},</if>
+            <if test="assetSubType != null">#{assetSubType},</if>
+            <if test="assetName != null">#{assetName},</if>
+            <if test="assetNation != null">#{assetNation},</if>
+            <if test="assetFactory != null">#{assetFactory},</if>
+            <if test="assetIsImport != null">#{assetIsImport},</if>
+            <if test="assetBugId != null">#{assetBugId},</if>
+            <if test="assetModel != null">#{assetModel},</if>
+            <if test="assetParam != null">#{assetParam},</if>
+            <if test="assetNum != null">#{assetNum},</if>
+            <if test="assetPerPrice != null">#{assetPerPrice},</if>
+            <if test="assetTotalPrice != null">#{assetTotalPrice},</if>
+            <if test="assetArriveTime != null">#{assetArriveTime},</if>
+            <if test="assetHoldTime != null">#{assetHoldTime},</if>
+            <if test="projectName != null">#{projectName},</if>
+            <if test="projectId != null">#{projectId},</if>
+            <if test="assetId != null">#{assetId},</if>
+            <if test="assetCurrentOwner != null">#{assetCurrentOwner},</if>
+            <if test="assetCurrentLocation != null">#{assetCurrentLocation},</if>
+            <if test="assetUseTo != null">#{assetUseTo},</if>
+            <if test="assetApplyList != null">#{assetApplyList},</if>
+            <if test="assetAcceptList != null">#{assetAcceptList},</if>
+            <if test="assetObjectImg != null">#{assetObjectImg},</if>
+            <if test="assetOtherFile != null">#{assetOtherFile},</if>
+            <if test="assetUseState != null">#{assetUseState},</if>
+            <if test="assetUseSituation != null">#{assetUseSituation},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysAssetInfo" parameterType="SysAssetInfo">
+        update sys_asset_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="assetType != null">asset_type = #{assetType},</if>
+            <if test="assetSubType != null">asset_sub_type = #{assetSubType},</if>
+            <if test="assetName != null">asset_name = #{assetName},</if>
+            <if test="assetNation != null">asset_nation = #{assetNation},</if>
+            <if test="assetFactory != null">asset_factory = #{assetFactory},</if>
+            <if test="assetIsImport != null">asset_is_import = #{assetIsImport},</if>
+            <if test="assetBugId != null">asset_bug_id = #{assetBugId},</if>
+            <if test="assetModel != null">asset_model = #{assetModel},</if>
+            <if test="assetParam != null">asset_param = #{assetParam},</if>
+            <if test="assetNum != null">asset_num = #{assetNum},</if>
+            <if test="assetPerPrice != null">asset_per_price = #{assetPerPrice},</if>
+            <if test="assetTotalPrice != null">asset_total_price = #{assetTotalPrice},</if>
+            <if test="assetArriveTime != null">asset_arrive_time = #{assetArriveTime},</if>
+            <if test="assetHoldTime != null">asset_hold_time = #{assetHoldTime},</if>
+            <if test="projectName != null">project_name = #{projectName},</if>
+            <if test="projectId != null">project_id = #{projectId},</if>
+            <if test="assetId != null">asset_id = #{assetId},</if>
+            <if test="assetCurrentOwner != null">asset_current_owner = #{assetCurrentOwner},</if>
+            <if test="assetCurrentLocation != null">asset_current_location = #{assetCurrentLocation},</if>
+            <if test="assetUseTo != null">asset_use_to = #{assetUseTo},</if>
+            <if test="assetApplyList != null">asset_apply_list = #{assetApplyList},</if>
+            <if test="assetAcceptList != null">asset_accept_list = #{assetAcceptList},</if>
+            <if test="assetObjectImg != null">asset_object_img = #{assetObjectImg},</if>
+            <if test="assetOtherFile != null">asset_other_file = #{assetOtherFile},</if>
+            <if test="assetUseState != null">asset_use_state = #{assetUseState},</if>
+            <if test="assetUseSituation != null">asset_use_situation = #{assetUseSituation},</if>
+        </trim>
+        where info_id = #{infoId}
+    </update>
+
+    <delete id="deleteSysAssetInfoByInfoId" parameterType="Long">
+        delete from sys_asset_info where info_id = #{infoId}
+    </delete>
+
+    <delete id="deleteSysAssetInfoByInfoIds" parameterType="String">
+        delete from sys_asset_info where info_id in 
+        <foreach item="infoId" collection="array" open="(" separator="," close=")">
+            #{infoId}
+        </foreach>
+    </delete>
+</mapper>
